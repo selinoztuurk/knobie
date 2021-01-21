@@ -7,6 +7,8 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+
+import { Feather, AntDesign } from "@expo/vector-icons";
 import { Context } from "../context/RecipeContext";
 
 const ShowScreen = ({ navigation }) => {
@@ -16,9 +18,19 @@ const ShowScreen = ({ navigation }) => {
     (recipe) => recipe.id === navigation.getParam("id")
   );
 
-  return <Text>{recipe.title}</Text>;
+  return (
+    <View>
+      <Text>{recipe.title}</Text>
+      <Text>{recipe.description}</Text>
+    </View>
+  );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  trashIcon: {
+    fontSize: 24,
+    color: "gray",
+  },
+});
 
 export default ShowScreen;

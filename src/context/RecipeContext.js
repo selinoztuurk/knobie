@@ -9,7 +9,7 @@ const recipeReducer = (state, action) => {
         {
           id: Math.floor(Math.random() * 99999),
           title: action.payload.title,
-          content: action.payload.content,
+          description: action.payload.description,
         },
       ];
     case "delete_recipe":
@@ -20,8 +20,9 @@ const recipeReducer = (state, action) => {
 };
 
 const addRecipe = (dispatch) => {
-  return (title, content) => {
-    dispatch({ type: "add_recipe", payload: { title, content } });
+  return (title, description, callback) => {
+    dispatch({ type: "add_recipe", payload: { title, description } });
+    callback();
   };
 };
 
@@ -36,31 +37,3 @@ export const { Context, Provider } = createDataContext(
   { addRecipe, deleteRecipe },
   []
 );
-
-/*export const BlogProvider = ({ children }) => {
-  //const [blogPosts, setBlogPosts] = useState([]);
-
-  const [blogPosts, dispatch] = useReducer(blogReducer, []);
-
-  /*const addBlogPost = () => {
-    setBlogPosts([
-      ...blogPosts,
-      { title: `Blog Post #${blogPosts.length + 1}` },
-    ]);
-  };
-  <BlogContext.Provider value={{ data: blogPosts, addBlogPost }}>
-  */
-
-/*const addBlogPost = () => {
-    dispatch({ type: "add_blogpost" });
-  };
-
-  return (
-    <BlogContext.Provider value={{ data: blogPosts, addBlogPost }}>
-      {children}
-    </BlogContext.Provider>
-  );
-};
-
-
-export default BlogContext;*/

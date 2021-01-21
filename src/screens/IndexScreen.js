@@ -4,18 +4,23 @@ import {
   Text,
   StyleSheet,
   FlatList,
+  Image,
+  ImageBackground,
   Button,
   TouchableOpacity,
 } from "react-native";
 import { Context } from "../context/RecipeContext";
-import { Feather } from "@expo/vector-icons";
+import { Feather, AntDesign } from "@expo/vector-icons";
+import RecipeCard from "../components/RecipeCard";
 
 const IndexScreen = ({ navigation }) => {
-  const { state, addRecipe, deleteRecipe } = useContext(Context);
+  const { state, deleteRecipe } = useContext(Context);
 
   return (
     <View>
-      <Button title="Add Recipe" onPress={addRecipe} />
+      {
+        //<Button title="Add New Recipe" onPress={() => navigation.navigate("Create")}/>
+      }
       <FlatList
         data={state}
         keyExtractor={(recipe) => recipe.title}
@@ -25,19 +30,22 @@ const IndexScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("Show", { id: item.id })}
             >
               <View style={styles.row}>
-                <Text style={styles.title}>{item.title}</Text>
+                <RecipeCard recipe={item} />
                 <TouchableOpacity
                   onPress={() => {
                     deleteRecipe(item.id);
                   }}
                 >
-                  <Feather style={styles.icon} name="trash" />
+                  <Feather style={styles.trashIcon} name="trash" />
                 </TouchableOpacity>
               </View>
             </TouchableOpacity>
           );
         }}
       />
+      <TouchableOpacity onPress={() => navigation.navigate("Naming")}>
+        <AntDesign name="pluscircle" size={50} style={styles.plusIcon} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -45,8 +53,8 @@ const IndexScreen = ({ navigation }) => {
 IndexScreen.navigationOptions = ({ navigation }) => {
   return {
     headerRight: () => (
-      <TouchableOpacity onPress={() => navigation.navigate("Create")}>
-        <Feather name="plus" size={30} />
+      <TouchableOpacity onPress={console.log("Search")}>
+        <AntDesign name="search1" size={24} style={styles.searchIcon} />
       </TouchableOpacity>
     ),
   };
@@ -58,14 +66,27 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: 20,
     paddingHorizontal: 10,
-    borderTopWidth: 1,
-    borderColor: "gray",
   },
   title: {
     fontSize: 18,
   },
-  icon: {
+  trashIcon: {
     fontSize: 24,
+    color: "gray",
+  },
+  searchIcon: {
+    paddingHorizontal: 20,
+    color: "gray",
+  },
+  plusIcon: {
+    paddingVertical: 20,
+    color: "gray",
+    alignSelf: "center",
+  },
+  imageStyle: {
+    width: 250,
+    height: 120,
+    borderRadius: 4,
   },
 });
 

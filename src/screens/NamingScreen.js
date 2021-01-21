@@ -10,9 +10,9 @@ import {
 } from "react-native";
 import { Context } from "../context/RecipeContext";
 
-const CreateScreen = ({ navigation }) => {
+const NamingScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [description, setDescription] = useState("");
 
   const { addRecipe } = useContext(Context);
 
@@ -24,17 +24,25 @@ const CreateScreen = ({ navigation }) => {
         value={title}
         onChangeText={(text) => setTitle(text)}
       ></TextInput>
-      <Text style={styles.label}>Enter Content:</Text>
+      <Text style={styles.label}>Enter Description:</Text>
       <TextInput
         style={styles.input}
-        value={content}
-        onChangeText={(content) => setContent(content)}
+        value={description}
+        onChangeText={(description) => setDescription(description)}
       ></TextInput>
       <Button
         title="Add Recipe"
         onPress={() => {
-          addRecipe(title, content);
-          navigation.navigate("Index");
+          addRecipe(title, description, () => {
+            navigation.navigate("Index");
+          });
+        }}
+      ></Button>
+      <Button
+        title="Next"
+        onPress={() => {
+          //addRecipe(title, description);
+          navigation.navigate("Ingredient");
         }}
       ></Button>
     </View>
@@ -57,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateScreen;
+export default NamingScreen;
