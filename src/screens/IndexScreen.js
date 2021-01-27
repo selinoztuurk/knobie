@@ -27,7 +27,11 @@ const IndexScreen = ({ navigation }) => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => navigation.navigate("Show", { id: item.id })}
+              onPress={() => {
+                navigation.navigate("Show", {
+                  id: item.id,
+                });
+              }}
             >
               <View style={styles.row}>
                 <RecipeCard recipe={item} />
@@ -53,7 +57,7 @@ const IndexScreen = ({ navigation }) => {
 IndexScreen.navigationOptions = ({ navigation }) => {
   return {
     headerRight: () => (
-      <TouchableOpacity onPress={console.log("Search")}>
+      <TouchableOpacity>
         <AntDesign name="search1" size={24} style={styles.searchIcon} />
       </TouchableOpacity>
     ),
@@ -63,8 +67,8 @@ IndexScreen.navigationOptions = ({ navigation }) => {
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 20,
+    justifyContent: "space-around",
+    paddingVertical: 40,
     paddingHorizontal: 10,
   },
   title: {
@@ -72,15 +76,15 @@ const styles = StyleSheet.create({
   },
   trashIcon: {
     fontSize: 24,
-    color: "gray",
+    color: "lightgray",
   },
   searchIcon: {
     paddingHorizontal: 20,
-    color: "gray",
+    color: "lightgray",
   },
   plusIcon: {
     paddingVertical: 20,
-    color: "gray",
+    color: "lightgray",
     alignSelf: "center",
   },
   imageStyle: {

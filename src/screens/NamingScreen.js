@@ -7,61 +7,88 @@ import {
   FlatList,
   Button,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { Context } from "../context/RecipeContext";
+import { AntDesign } from "@expo/vector-icons";
 
 const NamingScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const { addRecipe } = useContext(Context);
+  const { state, addRecipe } = useContext(Context);
 
   return (
-    <View>
-      <Text style={styles.label}>Enter Title:</Text>
+    <View style={styles.view}>
       <TextInput
         style={styles.input}
-        value={title}
+        placeholder="Name the recipe"
         onChangeText={(text) => setTitle(text)}
+        multiline={true}
       ></TextInput>
-      <Text style={styles.label}>Enter Description:</Text>
       <TextInput
         style={styles.input}
-        value={description}
+        placeholder="Describe it a little"
         onChangeText={(description) => setDescription(description)}
+        multiline={true}
       ></TextInput>
-      <Button
-        title="Add Recipe"
-        onPress={() => {
-          addRecipe(title, description, () => {
-            navigation.navigate("Index");
-          });
-        }}
-      ></Button>
-      <Button
-        title="Next"
+      <TouchableOpacity
+        style={styles.button}
         onPress={() => {
           //addRecipe(title, description);
-          navigation.navigate("Ingredient");
+          navigation.navigate("Category", {
+            title: title,
+            description: description,
+          });
         }}
-      ></Button>
+      >
+        <View>
+          <Text
+            style={{
+              ...styles.label,
+              color: "white",
+            }}
+          >
+            Next
+          </Text>
+        </View>
+        <AntDesign
+          name="arrowright"
+          size={24}
+          color="white"
+          style={{ paddingHorizontal: 5 }}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  view: {
+    padding: 20,
+  },
   input: {
     fontSize: 18,
-    borderWidth: 1,
-    borderColor: "black",
+    backgroundColor: "lightgray",
+    borderRadius: 8,
     marginBottom: 15,
-    padding: 5,
+    padding: 10,
     margin: 5,
   },
   label: {
     fontSize: 20,
     marginBottom: 5,
     marginLeft: 5,
+  },
+  button: {
+    alignSelf: "center",
+    backgroundColor: "orange",
+    borderRadius: 100,
+    padding: 20,
+    width: Dimensions.get("window").width / 3,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

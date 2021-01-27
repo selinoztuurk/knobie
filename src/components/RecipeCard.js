@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, ImageBackground, View } from "react-native";
+import { Text, StyleSheet, ImageBackground, View, Image } from "react-native";
 
 const RecipeCard = ({ recipe }) => {
   return (
@@ -8,6 +8,42 @@ const RecipeCard = ({ recipe }) => {
       imageStyle={{ borderRadius: 16 }}
       source={require("../../assets/pictures/cinnamon-swirl.jpg")}
     >
+      <View style={{ ...styles.attributeView, left: 10 }}>
+        <View style={{ flexDirection: "row" }}>
+          <Image
+            style={styles.attributeIcon}
+            source={require("../../assets/icons/seasonality.png")}
+          />
+          <Text style={{ ...styles.title, paddingLeft: 25 }}>4.5</Text>
+        </View>
+      </View>
+      <View style={{ ...styles.attributeView, left: 92.5 }}>
+        <View style={{ flexDirection: "row" }}>
+          <Image
+            style={styles.attributeIcon}
+            source={require("../../assets/icons/cost.png")}
+          />
+          <Text style={{ ...styles.title, paddingLeft: 25 }}>4.5</Text>
+        </View>
+      </View>
+      <View style={{ ...styles.attributeView, left: 173.75 }}>
+        <View style={{ flexDirection: "row" }}>
+          <Image
+            style={styles.attributeIcon}
+            source={require("../../assets/icons/locality.png")}
+          />
+          <Text style={{ ...styles.title, paddingLeft: 25 }}>4.5</Text>
+        </View>
+      </View>
+      <View style={{ ...styles.attributeView, left: 255 }}>
+        <View style={{ flexDirection: "row" }}>
+          <Image
+            style={styles.attributeIcon}
+            source={require("../../assets/icons/frugality.png")}
+          />
+          <Text style={{ ...styles.title, paddingLeft: 25 }}>4.5</Text>
+        </View>
+      </View>
       <View style={styles.view}>
         <Text style={styles.title}>{recipe.title}</Text>
       </View>
@@ -22,27 +58,43 @@ const styles = StyleSheet.create({
     right: -10,
     width: "auto",
     borderRadius: 8,
-    backgroundColor: "gray",
+    backgroundColor: "lightgray",
     flexDirection: "row",
     alignItems: "stretch",
   },
   title: {
     fontSize: 18,
     padding: 5,
-    color: "white",
+    color: "gray",
+  },
+  attributeView: {
+    position: "absolute",
+    bottom: 155,
+    width: "auto",
+    borderRadius: 8,
+    backgroundColor: "lightgray",
+    flex: 1,
+    flexDirection: "row",
+  },
+  attributeIcon: {
+    width: 40,
+    height: 40,
+    position: "absolute",
+    left: -20,
+    alignSelf: "center",
   },
   searchIcon: {
     paddingHorizontal: 20,
-    color: "gray",
+    color: "lightgray",
   },
   plusIcon: {
     paddingVertical: 20,
-    color: "gray",
+    color: "lightgray",
     alignSelf: "center",
   },
   imageStyle: {
     width: 300,
-    height: 150,
+    height: 170,
     borderRadius: 4,
     shadowColor: "black",
     shadowOffset: { height: 3 },

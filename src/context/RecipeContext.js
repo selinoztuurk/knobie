@@ -10,6 +10,8 @@ const recipeReducer = (state, action) => {
           id: Math.floor(Math.random() * 99999),
           title: action.payload.title,
           description: action.payload.description,
+          ingredients: action.payload.ingredients,
+          category: action.payload.category,
         },
       ];
     case "delete_recipe":
@@ -20,9 +22,14 @@ const recipeReducer = (state, action) => {
 };
 
 const addRecipe = (dispatch) => {
-  return (title, description, callback) => {
-    dispatch({ type: "add_recipe", payload: { title, description } });
-    callback();
+  return (title, description, ingredients, category, callback) => {
+    dispatch({
+      type: "add_recipe",
+      payload: { title, description, ingredients, category },
+    });
+    if (callback) {
+      callback();
+    }
   };
 };
 

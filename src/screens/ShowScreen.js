@@ -22,6 +22,8 @@ const ShowScreen = ({ navigation }) => {
     <View>
       <Text>{recipe.title}</Text>
       <Text>{recipe.description}</Text>
+      <Text>{recipe.ingredients}</Text>
+      <Text>{recipe.category}</Text>
     </View>
   );
 };
