@@ -1,5 +1,12 @@
 import React from "react";
-import { Text, StyleSheet, ImageBackground, View, Image } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  ImageBackground,
+  View,
+  Image,
+  Dimensions,
+} from "react-native";
 
 const RecipeCard = ({ recipe }) => {
   return (
@@ -93,7 +100,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   imageStyle: {
-    width: 300,
+    width: Dimensions.get("window").width - 40,
     height: 170,
     borderRadius: 4,
     shadowColor: "black",

@@ -35,13 +35,15 @@ const IndexScreen = ({ navigation }) => {
             >
               <View style={styles.row}>
                 <RecipeCard recipe={item} />
-                <TouchableOpacity
-                  onPress={() => {
-                    deleteRecipe(item.id);
-                  }}
-                >
-                  <Feather style={styles.trashIcon} name="trash" />
-                </TouchableOpacity>
+                {false ? (
+                  <TouchableOpacity
+                    onPress={() => {
+                      deleteRecipe(item.id);
+                    }}
+                  >
+                    <Feather style={styles.trashIcon} name="trash" />
+                  </TouchableOpacity>
+                ) : null}
               </View>
             </TouchableOpacity>
           );
@@ -86,11 +88,6 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     color: "lightgray",
     alignSelf: "center",
-  },
-  imageStyle: {
-    width: 250,
-    height: 120,
-    borderRadius: 4,
   },
 });
 

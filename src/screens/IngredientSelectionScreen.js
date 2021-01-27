@@ -11,48 +11,40 @@ import {
   Image,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import ingredients from "../../assets/database/ingredients";
 
 //
 
 const IngredientSelectionScreen = ({ navigation }) => {
-  const content = navigation.getParam("content");
-  console.log(content);
+  const data = ingredients.find(
+    (category) => category.id === navigation.getParam("category")
+  );
+
   const [ingredientsSelected, setIngredientsSelected] = useState({});
-  useEffect(() => {
-    for (ingredient in content) {
-      setIngredientsSelected({
-        ...ingredientsSelected,
-        ingredient: false,
-      });
-    }
-  }, []);
 
   return (
     <View>
       <Text style={styles.header}>Ingredients</Text>
       <FlatList
-        data={content}
-        keyExtractor={(item) => item}
+        data={data["content"]}
+        keyExtractor={(item) => item.title}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
               onPress={() => {
-                console.log(item + " Category pressed");
+                console.log(item.title + " Category pressed");
                 setIngredientsSelected({
                   ...ingredientsSelected,
-                  [item]: !ingredientsSelected[item],
+                  [item.title]: !ingredientsSelected[item.title],
                 });
               }}
             >
               <View style={styles.row}>
                 <View style={styles.imageView}>
-                  <Image
-                    style={styles.imageStyle}
-                    source={require("../../assets/pictures/apple.png")}
-                  ></Image>
+                  <Image style={styles.imageStyle} source={item.image}></Image>
                 </View>
-                <Text style={styles.title}>{item}</Text>
-                {ingredientsSelected[item] ? (
+                <Text style={styles.title}>{item.title}</Text>
+                {ingredientsSelected[item.title] ? (
                   <AntDesign
                     name="check"
                     size={16}

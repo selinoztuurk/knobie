@@ -17,11 +17,26 @@ const ingredientList = ingredients;
 
 const IngredientScreen = ({ navigation }) => {
   const { state, addRecipe } = useContext(Context);
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState({});
 
   const title = navigation.getParam("title");
   const description = navigation.getParam("description");
   const category = navigation.getParam("category");
+
+  useEffect(() => {
+    const updatedState = {};
+    if (navigation.getParam("content")) {
+      navigation.getParam("content").forEach((element) => {
+        updatedState[element] = "";
+      });
+      setIngredients({
+        ...ingredients,
+        ...updatedState,
+      });
+    }
+  }, [navigation.getParam("content")]);
+
+  console.log(ingredients);
 
   return (
     <View style={styles.mainView}>
@@ -33,16 +48,8 @@ const IngredientScreen = ({ navigation }) => {
           return (
             <TouchableOpacity
               onPress={() => {
-                const getIngredients = () => {
-                  var ingredients = [];
-                  for (key in Object.keys(item.content)) {
-                    ingredients = [...ingredients, item.content[key].title];
-                  }
-                  return ingredients;
-                };
-                const ingredients = getIngredients();
                 navigation.navigate("IngredientSelection", {
-                  content: ingredients,
+                  category: item.id,
                 });
               }}
             >
@@ -56,9 +63,15 @@ const IngredientScreen = ({ navigation }) => {
       <Button
         title="Add Recipe"
         onPress={() => {
-          addRecipe(title, description, ingredients, category, () => {
-            navigation.navigate("Index");
-          });
+          addRecipe(
+            title,
+            description,
+            Object.keys(ingredients),
+            category,
+            () => {
+              navigation.navigate("Index");
+            }
+          );
         }}
       ></Button>
     </View>
